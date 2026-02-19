@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <!-- Navbar (same style) -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
     <div class="container">
       <a class="navbar-brand fw-bold brand" href="index.html">
@@ -25,27 +25,40 @@
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
           <li class="nav-item"><a class="nav-link active" href="cart.html">Cart</a></li>
           <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
         </ul>
 
-        <div class="d-flex gap-2">
-          <a class="btn btn-outline-dark iconbtn" href="#" title="Wishlist"><i class="bi bi-heart"></i></a>
+        <div class="d-flex gap-2 align-items-center">
           <a class="btn btn-outline-dark iconbtn position-relative" href="cart.html" title="Cart">
             <i class="bi bi-bag"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2</span>
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
           </a>
-          <a class="btn btn-dark" href="#"><i class="bi bi-person-circle me-1"></i> Account</a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- Page Header -->
+  <!-- Header -->
   <header class="py-4">
     <div class="container">
-      <h1 class="fw-bold mb-1">Your Cart</h1>
-      <p class="text-muted mb-0">Review items before checkout.</p>
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2">
+        <div>
+          <h1 class="fw-bold mb-1">Your Cart</h1>
+          <p class="text-muted mb-0">Items you added from products page.</p>
+        </div>
+        <div class="d-flex gap-2">
+          <a class="btn btn-outline-dark" href="products.html">
+            <i class="bi bi-arrow-left me-1"></i> Continue Shopping
+          </a>
+          <button id="clearCartBtn" class="btn btn-outline-danger" type="button">
+            <i class="bi bi-trash3 me-1"></i> Clear Cart
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -56,92 +69,20 @@
         <div class="col-lg-8">
           <div class="bg-white border rounded-4 p-3 p-md-4">
             <div class="d-flex align-items-center justify-content-between mb-3">
-              <div class="fw-semibold">Items (2)</div>
-              <a class="link-dark small" href="index.html"><i class="bi bi-arrow-left me-1"></i> Continue shopping</a>
+              <div class="fw-semibold">Items (<span id="itemCount">0</span>)</div>
+              <div class="small text-muted">Cart saved in your browser (localStorage)</div>
             </div>
 
-            <!-- Item 1 -->
-            <div class="cart-item d-flex gap-3 py-3 border-top">
-              <div class="cart-thumb">
-                <div class="img-placeholder small">Image</div>
-              </div>
+            <div id="cartList"></div>
 
-              <div class="flex-grow-1">
-                <div class="d-flex justify-content-between gap-2">
-                  <div>
-                    <div class="small text-muted">Electronics</div>
-                    <div class="fw-semibold">Wireless Headphones</div>
-                  </div>
-                  <button class="btn btn-outline-dark btn-sm remove-btn" type="button">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </div>
-
-                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
-                  <div class="text-muted small">Unit Price: <span class="fw-semibold text-dark">৳</span><span class="fw-semibold text-dark unit-price">2799</span></div>
-
-                  <div class="d-flex align-items-center gap-2">
-                    <label class="small text-muted mb-0">Qty</label>
-                    <input class="form-control form-control-sm qty" type="number" min="1" value="1" style="width: 90px;">
-                  </div>
-
-                  <div class="text-end">
-                    <div class="small text-muted">Total</div>
-                    <div class="fw-bold">৳<span class="item-total">2799</span></div>
-                  </div>
-                </div>
-              </div>
+            <!-- Empty State -->
+            <div id="emptyState" class="text-center text-muted py-5 d-none">
+              <div class="fs-4 fw-bold mb-1">Your cart is empty</div>
+              <div class="mb-3">Go to products and add something.</div>
+              <a class="btn btn-dark" href="products.html">
+                Browse Products <i class="bi bi-arrow-right ms-1"></i>
+              </a>
             </div>
-
-            <!-- Item 2 -->
-            <div class="cart-item d-flex gap-3 py-3 border-top">
-              <div class="cart-thumb">
-                <div class="img-placeholder small">Image</div>
-              </div>
-
-              <div class="flex-grow-1">
-                <div class="d-flex justify-content-between gap-2">
-                  <div>
-                    <div class="small text-muted">Fashion</div>
-                    <div class="fw-semibold">Casual Sneakers</div>
-                  </div>
-                  <button class="btn btn-outline-dark btn-sm remove-btn" type="button">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </div>
-
-                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
-                  <div class="text-muted small">Unit Price: <span class="fw-semibold text-dark">৳</span><span class="fw-semibold text-dark unit-price">1999</span></div>
-
-                  <div class="d-flex align-items-center gap-2">
-                    <label class="small text-muted mb-0">Qty</label>
-                    <input class="form-control form-control-sm qty" type="number" min="1" value="1" style="width: 90px;">
-                  </div>
-
-                  <div class="text-end">
-                    <div class="small text-muted">Total</div>
-                    <div class="fw-bold">৳<span class="item-total">1999</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Coupon -->
-            <div class="pt-3 border-top">
-              <div class="row g-2 align-items-center">
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="bi bi-ticket-perforated"></i></span>
-                    <input type="text" class="form-control" placeholder="Coupon code (e.g., MALL10)">
-                  </div>
-                </div>
-                <div class="col-md-auto">
-                  <button class="btn btn-outline-dark w-100" type="button">Apply</button>
-                </div>
-              </div>
-              <div class="small text-muted mt-2">Tip: This is UI-only now. You can add real logic later.</div>
-            </div>
-
           </div>
         </div>
 
@@ -152,7 +93,7 @@
 
             <div class="d-flex justify-content-between mb-2">
               <div class="text-muted">Subtotal</div>
-              <div class="fw-semibold">৳<span id="subtotal">4798</span></div>
+              <div class="fw-semibold">৳<span id="subtotal">0</span></div>
             </div>
 
             <div class="d-flex justify-content-between mb-2">
@@ -169,15 +110,15 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div class="fw-bold">Total</div>
-              <div class="fw-bold fs-4">৳<span id="grandTotal">4918</span></div>
+              <div class="fw-bold fs-4">৳<span id="grandTotal">0</span></div>
             </div>
 
-            <a class="btn btn-dark btn-lg w-100" href="checkout.html">
+            <a id="checkoutBtn" class="btn btn-dark btn-lg w-100 disabled" href="checkout.html" aria-disabled="true">
               Proceed to Checkout <i class="bi bi-arrow-right ms-1"></i>
             </a>
 
             <div class="small text-muted mt-3">
-              By placing your order, you agree to our Terms & Privacy Policy.
+              Tip: Quantity update/remove works. Checkout can be connected later.
             </div>
           </div>
         </div>
@@ -188,48 +129,179 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Simple totals logic -->
   <script>
+    // ---------- MUST MATCH products.html ----------
+    const CART_KEY = "mallmart_cart";
+
+    // Demo product catalog (MUST MATCH products.html PRODUCTS)
+    const PRODUCTS = [
+      { id: 1, title: "Wireless Headphones", category: "Electronics", price: 2799, oldPrice: 3499 },
+      { id: 2, title: "Casual Sneakers", category: "Fashion", price: 1999, oldPrice: null },
+      { id: 3, title: "Air Fryer 3.5L", category: "Home", price: 5499, oldPrice: null },
+      { id: 4, title: "Organic Honey 500g", category: "Groceries", price: 699, oldPrice: null },
+      { id: 5, title: "Smart Watch", category: "Electronics", price: 2599, oldPrice: 2999 },
+      { id: 6, title: "Backpack", category: "Fashion", price: 1299, oldPrice: null }
+    ];
+
     const delivery = 120;
     const discount = 0;
 
-    function recalc() {
-      const items = document.querySelectorAll(".cart-item");
-      let subtotal = 0;
+    const cartList = document.getElementById("cartList");
+    const emptyState = document.getElementById("emptyState");
 
-      items.forEach(item => {
-        const unit = parseInt(item.querySelector(".unit-price").textContent.trim(), 10);
-        const qtyInput = item.querySelector(".qty");
-        let qty = parseInt(qtyInput.value, 10);
-
-        if (isNaN(qty) || qty < 1) qty = 1;
-        qtyInput.value = qty;
-
-        const total = unit * qty;
-        item.querySelector(".item-total").textContent = total;
-        subtotal += total;
-      });
-
-      document.getElementById("subtotal").textContent = subtotal;
-      document.getElementById("delivery").textContent = delivery;
-      document.getElementById("discount").textContent = discount;
-
-      const grand = subtotal + delivery - discount;
-      document.getElementById("grandTotal").textContent = grand;
+    function getCart() {
+      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    }
+    function setCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      render();
     }
 
-    document.addEventListener("input", (e) => {
-      if (e.target.classList.contains("qty")) recalc();
-    });
+    function cartCount(cart) {
+      return cart.reduce((sum, it) => sum + (it.qty || 0), 0);
+    }
 
-    document.querySelectorAll(".remove-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        btn.closest(".cart-item").remove();
-        recalc();
+    function updateBadge(count) {
+      document.getElementById("cartBadge").textContent = count;
+    }
+
+    function money(n) {
+      return Number(n).toLocaleString();
+    }
+
+    function buildRow(p, qty) {
+      const old = p.oldPrice ? `<div class="small text-muted text-decoration-line-through">৳${money(p.oldPrice)}</div>` : "";
+      return `
+        <div class="cart-item d-flex gap-3 py-3 border-top" data-id="${p.id}">
+          <div class="cart-thumb">
+            <div class="img-placeholder small">Image</div>
+          </div>
+
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between gap-2">
+              <div>
+                <div class="small text-muted">${p.category}</div>
+                <div class="fw-semibold">${p.title}</div>
+              </div>
+              <button class="btn btn-outline-dark btn-sm remove-btn" type="button" title="Remove">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
+              <div>
+                <div class="text-muted small">Unit Price: <span class="fw-semibold text-dark">৳${money(p.price)}</span></div>
+                ${old}
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                <label class="small text-muted mb-0">Qty</label>
+                <input class="form-control form-control-sm qty" type="number" min="1" value="${qty}" style="width: 90px;">
+              </div>
+
+              <div class="text-end">
+                <div class="small text-muted">Total</div>
+                <div class="fw-bold">৳<span class="item-total">${money(p.price * qty)}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      const cart = getCart(); // [{id, qty}]
+      const count = cartCount(cart);
+
+      updateBadge(count);
+      document.getElementById("itemCount").textContent = count;
+
+      if (!cart.length) {
+        cartList.innerHTML = "";
+        emptyState.classList.remove("d-none");
+        setSummary(0);
+        toggleCheckout(false);
+        return;
+      }
+
+      emptyState.classList.add("d-none");
+
+      // Build UI
+      let subtotal = 0;
+      let html = "";
+
+      cart.forEach(item => {
+        const p = PRODUCTS.find(x => x.id === item.id);
+        if (!p) return;
+        const qty = Math.max(1, Number(item.qty || 1));
+        subtotal += p.price * qty;
+        html += buildRow(p, qty);
       });
+
+      cartList.innerHTML = html;
+      setSummary(subtotal);
+      toggleCheckout(true);
+    }
+
+    function setSummary(subtotal) {
+      document.getElementById("subtotal").textContent = money(subtotal);
+      document.getElementById("delivery").textContent = money(delivery);
+      document.getElementById("discount").textContent = money(discount);
+      document.getElementById("grandTotal").textContent = money(subtotal + delivery - discount);
+    }
+
+    function toggleCheckout(enabled) {
+      const btn = document.getElementById("checkoutBtn");
+      if (enabled) {
+        btn.classList.remove("disabled");
+        btn.removeAttribute("aria-disabled");
+      } else {
+        btn.classList.add("disabled");
+        btn.setAttribute("aria-disabled", "true");
+      }
+    }
+
+    // ---------- Events (qty change + remove) ----------
+    cartList.addEventListener("input", (e) => {
+      if (!e.target.classList.contains("qty")) return;
+
+      const row = e.target.closest(".cart-item");
+      const id = Number(row.dataset.id);
+      let qty = Number(e.target.value);
+
+      if (!qty || qty < 1) qty = 1;
+      e.target.value = qty;
+
+      const cart = getCart();
+      const found = cart.find(it => it.id === id);
+      if (found) found.qty = qty;
+
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      render();
     });
 
-    recalc();
+    cartList.addEventListener("click", (e) => {
+      const btn = e.target.closest(".remove-btn");
+      if (!btn) return;
+
+      const row = btn.closest(".cart-item");
+      const id = Number(row.dataset.id);
+
+      let cart = getCart();
+      cart = cart.filter(it => it.id !== id);
+
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      render();
+    });
+
+    // Clear cart
+    document.getElementById("clearCartBtn").addEventListener("click", () => {
+      localStorage.removeItem(CART_KEY);
+      render();
+    });
+
+    // Init
+    render();
   </script>
 </body>
 </html>
