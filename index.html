@@ -27,7 +27,7 @@
       <div class="small d-flex gap-3">
         <a class="topbar-link" href="#">Help</a>
         <a class="topbar-link" href="#">Track Order</a>
-        <a class="topbar-link" href="#">Login</a>
+        <a class="topbar-link" href="login.html">Login</a>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
     <div class="container">
-      <a class="navbar-brand fw-bold brand" href="#">
+      <a class="navbar-brand fw-bold brand" href="index.html">
         <span class="brand-dot"></span> MallMart
       </a>
 
@@ -45,14 +45,14 @@
 
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
-          <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="#deals">Deals</a></li>
         </ul>
 
         <!-- Search -->
-        <form class="d-flex flex-grow-1 me-lg-3 my-2 my-lg-0" role="search">
+        <form class="d-flex flex-grow-1 me-lg-3 my-2 my-lg-0" role="search" action="products.html">
           <div class="input-group searchbox">
             <span class="input-group-text bg-white border-end-0">
               <i class="bi bi-search"></i>
@@ -67,13 +67,15 @@
           <a class="btn btn-outline-dark iconbtn" href="#" title="Wishlist">
             <i class="bi bi-heart"></i>
           </a>
-          <a class="btn btn-outline-dark iconbtn position-relative" href="#" title="Cart">
+
+          <a class="btn btn-outline-dark iconbtn position-relative" href="cart.html" title="Cart">
             <i class="bi bi-bag"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               2
             </span>
           </a>
-          <a class="btn btn-dark" href="#">
+
+          <a class="btn btn-dark" href="login.html">
             <i class="bi bi-person-circle me-1"></i> Account
           </a>
         </div>
@@ -94,7 +96,7 @@
             Discover trending fashion, electronics, groceries, and more — with fast delivery and great deals.
           </p>
           <div class="d-flex gap-2 flex-wrap">
-            <a href="#products" class="btn btn-dark btn-lg">
+            <a href="products.html" class="btn btn-dark btn-lg">
               Shop Now <i class="bi bi-arrow-right ms-1"></i>
             </a>
             <a href="#categories" class="btn btn-outline-dark btn-lg">
@@ -131,25 +133,31 @@
           <div class="hero-card p-4 p-md-5">
             <div class="row g-3">
               <div class="col-6">
-                <div class="hero-tile tile-1">
-                  <div class="tile-badge">Up to 40%</div>
-                  <div class="tile-title">Fashion</div>
-                  <div class="tile-sub">New arrivals</div>
-                </div>
+                <a class="text-decoration-none text-dark" href="products.html">
+                  <div class="hero-tile tile-1">
+                    <div class="tile-badge">Up to 40%</div>
+                    <div class="tile-title">Fashion</div>
+                    <div class="tile-sub">New arrivals</div>
+                  </div>
+                </a>
               </div>
               <div class="col-6">
-                <div class="hero-tile tile-2">
-                  <div class="tile-badge">Hot</div>
-                  <div class="tile-title">Electronics</div>
-                  <div class="tile-sub">Best sellers</div>
-                </div>
+                <a class="text-decoration-none text-dark" href="products.html">
+                  <div class="hero-tile tile-2">
+                    <div class="tile-badge">Hot</div>
+                    <div class="tile-title">Electronics</div>
+                    <div class="tile-sub">Best sellers</div>
+                  </div>
+                </a>
               </div>
               <div class="col-12">
-                <div class="hero-tile tile-3">
-                  <div class="tile-badge">Fresh</div>
-                  <div class="tile-title">Groceries</div>
-                  <div class="tile-sub">Daily essentials</div>
-                </div>
+                <a class="text-decoration-none text-dark" href="products.html">
+                  <div class="hero-tile tile-3">
+                    <div class="tile-badge">Fresh</div>
+                    <div class="tile-title">Groceries</div>
+                    <div class="tile-sub">Daily essentials</div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -167,13 +175,12 @@
           <h2 class="fw-bold mb-1">Shop by Category</h2>
           <p class="text-muted mb-0">Pick a department inside the mall.</p>
         </div>
-        <a href="#" class="link-dark fw-semibold">View all <i class="bi bi-chevron-right"></i></a>
+        <a href="products.html" class="link-dark fw-semibold">View all <i class="bi bi-chevron-right"></i></a>
       </div>
 
       <div class="row g-3">
-        <!-- Category Card -->
         <div class="col-6 col-md-4 col-lg-2">
-          <a class="cat-card" href="#">
+          <a class="cat-card" href="products.html">
             <div class="cat-icon"><i class="bi bi-bag-heart"></i></div>
             <div class="fw-semibold">Fashion</div>
             <div class="small text-muted">Clothes & shoes</div>
@@ -181,7 +188,7 @@
         </div>
 
         <div class="col-6 col-md-4 col-lg-2">
-          <a class="cat-card" href="#">
+          <a class="cat-card" href="products.html">
             <div class="cat-icon"><i class="bi bi-phone"></i></div>
             <div class="fw-semibold">Mobiles</div>
             <div class="small text-muted">Phones & accessories</div>
@@ -189,7 +196,7 @@
         </div>
 
         <div class="col-6 col-md-4 col-lg-2">
-          <a class="cat-card" href="#">
+          <a class="cat-card" href="products.html">
             <div class="cat-icon"><i class="bi bi-laptop"></i></div>
             <div class="fw-semibold">Computers</div>
             <div class="small text-muted">Laptop & gadgets</div>
@@ -197,7 +204,7 @@
         </div>
 
         <div class="col-6 col-md-4 col-lg-2">
-          <a class="cat-card" href="#">
+          <a class="cat-card" href="products.html">
             <div class="cat-icon"><i class="bi bi-house-heart"></i></div>
             <div class="fw-semibold">Home</div>
             <div class="small text-muted">Decor & living</div>
@@ -205,7 +212,7 @@
         </div>
 
         <div class="col-6 col-md-4 col-lg-2">
-          <a class="cat-card" href="#">
+          <a class="cat-card" href="products.html">
             <div class="cat-icon"><i class="bi bi-basket"></i></div>
             <div class="fw-semibold">Groceries</div>
             <div class="small text-muted">Daily essentials</div>
@@ -213,7 +220,7 @@
         </div>
 
         <div class="col-6 col-md-4 col-lg-2">
-          <a class="cat-card" href="#">
+          <a class="cat-card" href="products.html">
             <div class="cat-icon"><i class="bi bi-controller"></i></div>
             <div class="fw-semibold">Gaming</div>
             <div class="small text-muted">Consoles & more</div>
@@ -233,7 +240,7 @@
             <p class="text-muted mb-0">Limited-time discounts across top categories.</p>
           </div>
           <div class="col-lg-4 text-lg-end">
-            <a href="#products" class="btn btn-dark btn-lg">Explore Deals</a>
+            <a href="products.html" class="btn btn-dark btn-lg">Explore Deals</a>
           </div>
         </div>
       </div>
@@ -249,24 +256,26 @@
           <p class="text-muted mb-0">Add a few items to your cart.</p>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn btn-outline-dark btn-sm">New</button>
-          <button class="btn btn-dark btn-sm">Popular</button>
-          <button class="btn btn-outline-dark btn-sm">Best price</button>
+          <a class="btn btn-outline-dark btn-sm" href="products.html">New</a>
+          <a class="btn btn-dark btn-sm" href="products.html">Popular</a>
+          <a class="btn btn-outline-dark btn-sm" href="products.html">Best price</a>
         </div>
       </div>
 
       <div class="row g-3">
-        <!-- Product Card -->
+        <!-- Product Card 1 -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="product-card">
             <div class="product-img">
               <span class="badge bg-danger">-20%</span>
-              <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
+              <button class="btn btn-light btn-sm heart" type="button"><i class="bi bi-heart"></i></button>
               <div class="img-placeholder">Product Image</div>
             </div>
             <div class="p-3">
               <div class="small text-muted">Electronics</div>
-              <div class="fw-semibold mb-1">Wireless Headphones</div>
+              <a class="fw-semibold mb-1 d-block text-decoration-none text-dark" href="product-details.html">
+                Wireless Headphones
+              </a>
               <div class="rating small mb-2">
                 <i class="bi bi-star-fill"></i> 4.6 <span class="text-muted">(1,245)</span>
               </div>
@@ -275,24 +284,27 @@
                   <div class="price">৳2,799</div>
                   <div class="small text-muted text-decoration-line-through">৳3,499</div>
                 </div>
-                <button class="btn btn-dark btn-sm">
+                <a class="btn btn-dark btn-sm" href="cart.html">
                   <i class="bi bi-bag-plus me-1"></i> Add
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Product Card 2 -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="product-card">
             <div class="product-img">
               <span class="badge bg-success">New</span>
-              <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
+              <button class="btn btn-light btn-sm heart" type="button"><i class="bi bi-heart"></i></button>
               <div class="img-placeholder">Product Image</div>
             </div>
             <div class="p-3">
               <div class="small text-muted">Fashion</div>
-              <div class="fw-semibold mb-1">Casual Sneakers</div>
+              <a class="fw-semibold mb-1 d-block text-decoration-none text-dark" href="product-details.html">
+                Casual Sneakers
+              </a>
               <div class="rating small mb-2">
                 <i class="bi bi-star-fill"></i> 4.4 <span class="text-muted">(840)</span>
               </div>
@@ -301,24 +313,27 @@
                   <div class="price">৳1,999</div>
                   <div class="small text-muted">Free delivery</div>
                 </div>
-                <button class="btn btn-dark btn-sm">
+                <a class="btn btn-dark btn-sm" href="cart.html">
                   <i class="bi bi-bag-plus me-1"></i> Add
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Product Card 3 -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="product-card">
             <div class="product-img">
               <span class="badge bg-warning text-dark">Hot</span>
-              <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
+              <button class="btn btn-light btn-sm heart" type="button"><i class="bi bi-heart"></i></button>
               <div class="img-placeholder">Product Image</div>
             </div>
             <div class="p-3">
               <div class="small text-muted">Home</div>
-              <div class="fw-semibold mb-1">Air Fryer 3.5L</div>
+              <a class="fw-semibold mb-1 d-block text-decoration-none text-dark" href="product-details.html">
+                Air Fryer 3.5L
+              </a>
               <div class="rating small mb-2">
                 <i class="bi bi-star-fill"></i> 4.7 <span class="text-muted">(2,010)</span>
               </div>
@@ -327,24 +342,27 @@
                   <div class="price">৳5,499</div>
                   <div class="small text-muted">Warranty included</div>
                 </div>
-                <button class="btn btn-dark btn-sm">
+                <a class="btn btn-dark btn-sm" href="cart.html">
                   <i class="bi bi-bag-plus me-1"></i> Add
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Product Card 4 -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="product-card">
             <div class="product-img">
               <span class="badge bg-dark">Best</span>
-              <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
+              <button class="btn btn-light btn-sm heart" type="button"><i class="bi bi-heart"></i></button>
               <div class="img-placeholder">Product Image</div>
             </div>
             <div class="p-3">
               <div class="small text-muted">Groceries</div>
-              <div class="fw-semibold mb-1">Organic Honey 500g</div>
+              <a class="fw-semibold mb-1 d-block text-decoration-none text-dark" href="product-details.html">
+                Organic Honey 500g
+              </a>
               <div class="rating small mb-2">
                 <i class="bi bi-star-fill"></i> 4.5 <span class="text-muted">(612)</span>
               </div>
@@ -353,9 +371,9 @@
                   <div class="price">৳699</div>
                   <div class="small text-muted">Fresh stock</div>
                 </div>
-                <button class="btn btn-dark btn-sm">
+                <a class="btn btn-dark btn-sm" href="cart.html">
                   <i class="bi bi-bag-plus me-1"></i> Add
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -402,8 +420,8 @@
         <div class="col-6 col-lg-2">
           <div class="fw-semibold mb-2">Mall</div>
           <ul class="list-unstyled small">
+            <li><a class="footer-link" href="products.html">Products</a></li>
             <li><a class="footer-link" href="#categories">Categories</a></li>
-            <li><a class="footer-link" href="#products">Products</a></li>
             <li><a class="footer-link" href="#deals">Deals</a></li>
           </ul>
         </div>
