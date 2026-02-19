@@ -30,18 +30,18 @@
           <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
         </ul>
 
-        <form class="d-flex me-lg-3 my-2 my-lg-0" role="search">
-          <div class="input-group searchbox">
+        <div class="d-flex gap-2 align-items-center">
+          <div class="input-group searchbox d-none d-lg-flex" style="max-width: 360px;">
             <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-            <input class="form-control border-start-0" type="search" placeholder="Search products..." aria-label="Search">
-            <button class="btn btn-dark px-3" type="submit">Search</button>
+            <input id="searchInputTop" class="form-control border-start-0" type="search" placeholder="Search products...">
           </div>
-        </form>
 
-        <div class="d-flex gap-2">
-          <a class="btn btn-outline-dark iconbtn" href="#" title="Wishlist"><i class="bi bi-heart"></i></a>
-          <a class="btn btn-outline-dark iconbtn" href="cart.html" title="Cart"><i class="bi bi-bag"></i></a>
-          <a class="btn btn-dark" href="#"><i class="bi bi-person-circle me-1"></i> Account</a>
+          <a class="btn btn-outline-dark iconbtn position-relative" href="cart.html" title="Cart">
+            <i class="bi bi-bag"></i>
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
+          </a>
         </div>
       </div>
     </div>
@@ -53,17 +53,32 @@
       <div class="d-flex flex-wrap gap-2 align-items-end justify-content-between">
         <div>
           <h1 class="fw-bold mb-1">Products</h1>
-          <p class="text-muted mb-0">Browse the mall and find what you need.</p>
+          <p class="text-muted mb-0">Search, filter, and add products to cart.</p>
         </div>
 
-        <div class="d-flex gap-2">
-          <select class="form-select" style="max-width: 220px;">
-            <option selected>Sort: Recommended</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Newest</option>
-            <option>Best Rating</option>
+        <div class="d-flex gap-2 align-items-center">
+          <select id="sortSelect" class="form-select" style="max-width: 240px;">
+            <option value="recommended" selected>Sort: Recommended</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="name">Name: A → Z</option>
           </select>
+        </div>
+      </div>
+
+      <!-- Category Filter Buttons -->
+      <div class="mt-3 d-flex flex-wrap gap-2">
+        <button class="btn btn-dark btn-sm filter-btn" data-category="all">All</button>
+        <button class="btn btn-outline-dark btn-sm filter-btn" data-category="Electronics">Electronics</button>
+        <button class="btn btn-outline-dark btn-sm filter-btn" data-category="Fashion">Fashion</button>
+        <button class="btn btn-outline-dark btn-sm filter-btn" data-category="Home">Home</button>
+        <button class="btn btn-outline-dark btn-sm filter-btn" data-category="Groceries">Groceries</button>
+
+        <div class="ms-auto d-flex gap-2 flex-wrap">
+          <div class="input-group searchbox d-lg-none" style="max-width: 420px;">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+            <input id="searchInputMobile" class="form-control border-start-0" type="search" placeholder="Search products...">
+          </div>
         </div>
       </div>
     </div>
@@ -71,178 +86,253 @@
 
   <main class="pb-5">
     <div class="container">
-      <div class="row g-4">
-        <!-- Filters -->
-        <aside class="col-lg-3">
-          <div class="bg-white border rounded-4 p-3 p-md-4">
-            <div class="fw-bold mb-3">Filters</div>
+      <div class="row g-3" id="productGrid">
+        <!-- Cards injected by JS -->
+      </div>
 
-            <div class="mb-3">
-              <label class="fw-semibold mb-2">Category</label>
-              <div class="d-grid gap-2">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="c1" checked>
-                  <label class="form-check-label" for="c1">Electronics</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="c2">
-                  <label class="form-check-label" for="c2">Fashion</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="c3">
-                  <label class="form-check-label" for="c3">Home</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="c4">
-                  <label class="form-check-label" for="c4">Groceries</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label class="fw-semibold mb-2">Price Range</label>
-              <input type="range" class="form-range" min="0" max="100" value="60">
-              <div class="d-flex justify-content-between small text-muted">
-                <span>৳0</span><span>৳10,000+</span>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label class="fw-semibold mb-2">Rating</label>
-              <div class="d-grid gap-2">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="rating" id="r1" checked>
-                  <label class="form-check-label" for="r1">4★ & up</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="rating" id="r2">
-                  <label class="form-check-label" for="r2">3★ & up</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="rating" id="r3">
-                  <label class="form-check-label" for="r3">All ratings</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="d-grid gap-2">
-              <button class="btn btn-dark" type="button">Apply Filters</button>
-              <button class="btn btn-outline-dark" type="button">Reset</button>
-            </div>
-
-            <div class="small text-muted mt-3">
-              UI-only filters now. Add JS later to make it dynamic.
-            </div>
-          </div>
-        </aside>
-
-        <!-- Product Grid -->
-        <section class="col-lg-9">
-          <div class="row g-3">
-            <!-- Product -->
-            <div class="col-12 col-sm-6 col-xl-4">
-              <div class="product-card">
-                <div class="product-img">
-                  <span class="badge bg-danger">-20%</span>
-                  <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
-                  <div class="img-placeholder">Product Image</div>
-                </div>
-                <div class="p-3">
-                  <div class="small text-muted">Electronics</div>
-                  <a class="fw-semibold text-decoration-none text-dark d-block mb-1" href="product-details.html">
-                    Wireless Headphones
-                  </a>
-                  <div class="rating small mb-2">
-                    <i class="bi bi-star-fill"></i> 4.6 <span class="text-muted">(1,245)</span>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <div class="price">৳2,799</div>
-                      <div class="small text-muted text-decoration-line-through">৳3,499</div>
-                    </div>
-                    <a class="btn btn-dark btn-sm" href="cart.html">
-                      <i class="bi bi-bag-plus me-1"></i> Add
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4">
-              <div class="product-card">
-                <div class="product-img">
-                  <span class="badge bg-success">New</span>
-                  <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
-                  <div class="img-placeholder">Product Image</div>
-                </div>
-                <div class="p-3">
-                  <div class="small text-muted">Fashion</div>
-                  <a class="fw-semibold text-decoration-none text-dark d-block mb-1" href="product-details.html">
-                    Casual Sneakers
-                  </a>
-                  <div class="rating small mb-2">
-                    <i class="bi bi-star-fill"></i> 4.4 <span class="text-muted">(840)</span>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <div class="price">৳1,999</div>
-                      <div class="small text-muted">Free delivery</div>
-                    </div>
-                    <a class="btn btn-dark btn-sm" href="cart.html">
-                      <i class="bi bi-bag-plus me-1"></i> Add
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4">
-              <div class="product-card">
-                <div class="product-img">
-                  <span class="badge bg-warning text-dark">Hot</span>
-                  <button class="btn btn-light btn-sm heart"><i class="bi bi-heart"></i></button>
-                  <div class="img-placeholder">Product Image</div>
-                </div>
-                <div class="p-3">
-                  <div class="small text-muted">Home</div>
-                  <a class="fw-semibold text-decoration-none text-dark d-block mb-1" href="product-details.html">
-                    Air Fryer 3.5L
-                  </a>
-                  <div class="rating small mb-2">
-                    <i class="bi bi-star-fill"></i> 4.7 <span class="text-muted">(2,010)</span>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <div class="price">৳5,499</div>
-                      <div class="small text-muted">Warranty included</div>
-                    </div>
-                    <a class="btn btn-dark btn-sm" href="cart.html">
-                      <i class="bi bi-bag-plus me-1"></i> Add
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pagination -->
-            <div class="col-12">
-              <nav class="mt-3">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-              </nav>
-            </div>
-
-          </div>
-        </section>
+      <!-- Empty state -->
+      <div id="emptyState" class="text-center text-muted py-5 d-none">
+        <div class="fs-4 fw-bold mb-1">No products found</div>
+        <div>Try another search or category.</div>
       </div>
     </div>
   </main>
 
+  <!-- Quick View Modal -->
+  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4">
+        <div class="modal-body p-4">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <div id="qvCategory" class="small text-muted"></div>
+              <h3 id="qvTitle" class="fw-bold mb-1"></h3>
+              <div class="small text-muted">Demo quick view</div>
+            </div>
+            <button class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+          </div>
+
+          <div class="row g-3 align-items-center">
+            <div class="col-md-6">
+              <div class="product-img rounded-4" style="height: 260px;">
+                <div class="img-placeholder">Product Image</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-end gap-2 mb-2">
+                <div class="fw-bold fs-3">৳<span id="qvPrice"></span></div>
+                <div class="text-muted text-decoration-line-through" id="qvOldPriceWrap">
+                  ৳<span id="qvOldPrice"></span>
+                </div>
+              </div>
+              <p class="text-muted mb-3">
+                Premium quality product for daily use. (Demo description — you can replace later)
+              </p>
+
+              <div class="d-flex gap-2 flex-wrap">
+                <a id="qvDetailsLink" class="btn btn-outline-dark" href="product-details.html">
+                  View Details
+                </a>
+                <button id="qvAddBtn" class="btn btn-dark">
+                  <i class="bi bi-bag-plus me-1"></i> Add to Cart
+                </button>
+                <a class="btn btn-outline-dark" href="cart.html">Go to Cart</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ---------- Demo Product Data ----------
+    const PRODUCTS = [
+      { id: 1, title: "Wireless Headphones", category: "Electronics", price: 2799, oldPrice: 3499, rating: 4.6, badge: "-20%" },
+      { id: 2, title: "Casual Sneakers", category: "Fashion", price: 1999, oldPrice: null, rating: 4.4, badge: "New" },
+      { id: 3, title: "Air Fryer 3.5L", category: "Home", price: 5499, oldPrice: null, rating: 4.7, badge: "Hot" },
+      { id: 4, title: "Organic Honey 500g", category: "Groceries", price: 699, oldPrice: null, rating: 4.5, badge: "Best" },
+      { id: 5, title: "Smart Watch", category: "Electronics", price: 2599, oldPrice: 2999, rating: 4.3, badge: "-10%" },
+      { id: 6, title: "Backpack", category: "Fashion", price: 1299, oldPrice: null, rating: 4.2, badge: "New" }
+    ];
+
+    // ---------- Cart helpers (localStorage) ----------
+    const CART_KEY = "mallmart_cart";
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    }
+    function setCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateCartBadge();
+    }
+    function updateCartBadge() {
+      const cart = getCart();
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById("cartBadge").textContent = count;
+    }
+    function addToCart(productId) {
+      const cart = getCart();
+      const found = cart.find(i => i.id === productId);
+      if (found) found.qty += 1;
+      else cart.push({ id: productId, qty: 1 });
+
+      setCart(cart);
+    }
+
+    // ---------- Render ----------
+    const grid = document.getElementById("productGrid");
+    const emptyState = document.getElementById("emptyState");
+
+    let activeCategory = "all";
+
+    function productCard(p) {
+      const badgeClass =
+        p.badge?.includes("-") ? "bg-danger" :
+        p.badge === "Hot" ? "bg-warning text-dark" :
+        p.badge === "Best" ? "bg-dark" :
+        "bg-success";
+
+      return `
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="product-card h-100">
+          <div class="product-img">
+            ${p.badge ? `<span class="badge ${badgeClass}">${p.badge}</span>` : ""}
+            <button class="btn btn-light btn-sm heart" type="button" title="Wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <div class="img-placeholder">Product Image</div>
+          </div>
+          <div class="p-3">
+            <div class="small text-muted">${p.category}</div>
+            <a class="fw-semibold text-decoration-none text-dark d-block mb-1" href="product-details.html">
+              ${p.title}
+            </a>
+            <div class="rating small mb-2">
+              <i class="bi bi-star-fill"></i> ${p.rating.toFixed(1)}
+              <span class="text-muted">(demo)</span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <div class="price">৳${p.price.toLocaleString()}</div>
+                ${p.oldPrice ? `<div class="small text-muted text-decoration-line-through">৳${p.oldPrice.toLocaleString()}</div>` : `<div class="small text-muted">&nbsp;</div>`}
+              </div>
+
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-dark btn-sm" type="button"
+                  data-action="quick" data-id="${p.id}">
+                  Quick View
+                </button>
+                <button class="btn btn-dark btn-sm" type="button"
+                  data-action="add" data-id="${p.id}">
+                  <i class="bi bi-bag-plus me-1"></i> Add
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function applyFilters() {
+      const searchTop = document.getElementById("searchInputTop").value.trim().toLowerCase();
+      const searchMobile = document.getElementById("searchInputMobile").value.trim().toLowerCase();
+      const q = (searchTop || searchMobile);
+
+      let list = PRODUCTS.slice();
+
+      // category filter
+      if (activeCategory !== "all") {
+        list = list.filter(p => p.category === activeCategory);
+      }
+
+      // search filter
+      if (q) {
+        list = list.filter(p => p.title.toLowerCase().includes(q));
+      }
+
+      // sorting
+      const sort = document.getElementById("sortSelect").value;
+      if (sort === "low") list.sort((a,b) => a.price - b.price);
+      if (sort === "high") list.sort((a,b) => b.price - a.price);
+      if (sort === "name") list.sort((a,b) => a.title.localeCompare(b.title));
+
+      // render
+      grid.innerHTML = list.map(productCard).join("");
+      emptyState.classList.toggle("d-none", list.length !== 0);
+    }
+
+    // ---------- Events ----------
+    document.getElementById("sortSelect").addEventListener("change", applyFilters);
+
+    document.getElementById("searchInputTop").addEventListener("input", () => {
+      document.getElementById("searchInputMobile").value = document.getElementById("searchInputTop").value;
+      applyFilters();
+    });
+
+    document.getElementById("searchInputMobile").addEventListener("input", () => {
+      document.getElementById("searchInputTop").value = document.getElementById("searchInputMobile").value;
+      applyFilters();
+    });
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("btn-dark"));
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.add("btn-outline-dark"));
+
+        btn.classList.remove("btn-outline-dark");
+        btn.classList.add("btn-dark");
+        activeCategory = btn.dataset.category;
+        applyFilters();
+      });
+    });
+
+    // Delegate clicks for Add & Quick View
+    const qvModal = new bootstrap.Modal(document.getElementById("quickViewModal"));
+    let qvCurrentId = null;
+
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-action]");
+      if (!el) return;
+
+      const action = el.dataset.action;
+      const id = parseInt(el.dataset.id, 10);
+      const p = PRODUCTS.find(x => x.id === id);
+      if (!p) return;
+
+      if (action === "add") {
+        addToCart(id);
+      }
+
+      if (action === "quick") {
+        qvCurrentId = id;
+        document.getElementById("qvCategory").textContent = p.category;
+        document.getElementById("qvTitle").textContent = p.title;
+        document.getElementById("qvPrice").textContent = p.price.toLocaleString();
+
+        const oldWrap = document.getElementById("qvOldPriceWrap");
+        if (p.oldPrice) {
+          oldWrap.style.display = "block";
+          document.getElementById("qvOldPrice").textContent = p.oldPrice.toLocaleString();
+        } else {
+          oldWrap.style.display = "none";
+        }
+
+        qvModal.show();
+      }
+    });
+
+    document.getElementById("qvAddBtn").addEventListener("click", () => {
+      if (qvCurrentId) addToCart(qvCurrentId);
+    });
+
+    // ---------- Init ----------
+    updateCartBadge();
+    applyFilters();
+  </script>
 </body>
 </html>
