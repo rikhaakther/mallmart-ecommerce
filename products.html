@@ -36,6 +36,14 @@
             <input id="searchInputTop" class="form-control border-start-0" type="search" placeholder="Search products...">
           </div>
 
+          <!-- ✅ Wishlist -->
+          <a class="btn btn-outline-dark iconbtn position-relative" href="#" title="Wishlist">
+            <i class="bi bi-heart"></i>
+            <span id="wishBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
+          </a>
+
           <a class="btn btn-outline-dark iconbtn position-relative" href="cart.html" title="Cart">
             <i class="bi bi-bag"></i>
             <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -175,14 +183,8 @@
 
     // ---------- Cart helpers (localStorage) ----------
     const CART_KEY = "mallmart_cart";
-
-    function getCart() {
-      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-    }
-    function setCart(cart) {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      updateCartBadge();
-    }
+    function getCart() { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+    function setCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartBadge(); }
     function updateCartBadge() {
       const cart = getCart();
       const count = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
@@ -195,6 +197,36 @@
       if (found) found.qty += 1;
       else cart.push({ id: productId, qty: 1 });
       setCart(cart);
+    }
+
+    // ---------- Wishlist helpers (localStorage) ----------
+    const WISH_KEY = "mallmart_wishlist";
+    function getWishlist() { return JSON.parse(localStorage.getItem(WISH_KEY) || "[]"); } // [id,id]
+    function setWishlist(list) { localStorage.setItem(WISH_KEY, JSON.stringify(list)); updateWishBadge(); }
+    function updateWishBadge() {
+      const badge = document.getElementById("wishBadge");
+      if (badge) badge.textContent = getWishlist().length;
+    }
+    function isWished(id) { return getWishlist().includes(id); }
+    function toggleWishlist(id) {
+      const list = getWishlist();
+      const idx = list.indexOf(id);
+      if (idx >= 0) list.splice(idx, 1);
+      else list.push(id);
+      setWishlist(list);
+    }
+
+    // ---------- Rating stars ----------
+    function renderStars(rating) {
+      const full = Math.floor(rating);
+      const hasHalf = (rating - full) >= 0.5;
+      const empty = 5 - full - (hasHalf ? 1 : 0);
+
+      let stars = "";
+      for (let i = 0; i < full; i++) stars += `<i class="bi bi-star-fill"></i>`;
+      if (hasHalf) stars += `<i class="bi bi-star-half"></i>`;
+      for (let i = 0; i < empty; i++) stars += `<i class="bi bi-star"></i>`;
+      return stars;
     }
 
     // ---------- Render ----------
@@ -214,8 +246,13 @@
           <div class="product-card h-100">
             <div class="product-img">
               ${p.badge ? `<span class="badge ${badgeClass}">${p.badge}</span>` : ""}
-              <button class="btn btn-light btn-sm heart" type="button" title="Wishlist">
-                <i class="bi bi-heart"></i>
+
+              <!-- ✅ Wishlist toggle -->
+              <button class="btn btn-light btn-sm heart" type="button"
+                title="Wishlist"
+                data-action="wish"
+                data-id="${p.id}">
+                <i class="bi ${isWished(p.id) ? "bi-heart-fill" : "bi-heart"}"></i>
               </button>
 
               <a href="product-details.html?id=${p.id}" class="text-decoration-none text-dark">
@@ -231,9 +268,10 @@
                 ${p.title}
               </a>
 
+              <!-- ✅ Dynamic Stars -->
               <div class="rating small mb-2">
-                <i class="bi bi-star-fill"></i> ${p.rating.toFixed(1)}
-                <span class="text-muted">(demo)</span>
+                ${renderStars(p.rating)}
+                <span class="text-muted">(${p.rating.toFixed(1)})</span>
               </div>
 
               <div class="d-flex align-items-center justify-content-between">
@@ -271,13 +309,8 @@
 
       let list = PRODUCTS.slice();
 
-      if (activeCategory !== "all") {
-        list = list.filter(p => p.category === activeCategory);
-      }
-
-      if (q) {
-        list = list.filter(p => p.title.toLowerCase().includes(q));
-      }
+      if (activeCategory !== "all") list = list.filter(p => p.category === activeCategory);
+      if (q) list = list.filter(p => p.title.toLowerCase().includes(q));
 
       const sort = sortEl ? sortEl.value : "recommended";
       if (sort === "low") list.sort((a, b) => a.price - b.price);
@@ -285,7 +318,6 @@
       if (sort === "name") list.sort((a, b) => a.title.localeCompare(b.title));
 
       if (!grid) return;
-
       grid.innerHTML = list.map(productCard).join("");
       if (emptyState) emptyState.classList.toggle("d-none", list.length !== 0);
     }
@@ -322,7 +354,7 @@
       });
     });
 
-    // Delegate clicks for Add & Quick View
+    // Delegate clicks (Add / Quick / Wish)
     const qvModalEl = document.getElementById("quickViewModal");
     const qvModal = qvModalEl ? new bootstrap.Modal(qvModalEl) : null;
     let qvCurrentId = null;
@@ -334,6 +366,13 @@
       const action = el.dataset.action;
       const id = parseInt(el.dataset.id, 10);
       const p = PRODUCTS.find(x => x.id === id);
+
+      if (action === "wish") {
+        toggleWishlist(id);
+        applyFilters(); // re-render so icon updates
+        return;
+      }
+
       if (!p) return;
 
       if (action === "add") {
@@ -347,7 +386,6 @@
         document.getElementById("qvTitle").textContent = p.title;
         document.getElementById("qvPrice").textContent = p.price.toLocaleString();
 
-        // ✅ Dynamic View Details link
         const detailsLink = document.getElementById("qvDetailsLink");
         if (detailsLink) detailsLink.href = `product-details.html?id=${p.id}`;
 
@@ -369,6 +407,7 @@
 
     // ---------- Init ----------
     updateCartBadge();
+    updateWishBadge();
     applyFilters();
   </script>
 </body>
