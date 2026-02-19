@@ -254,58 +254,72 @@
       </div>`;
     }
 
-    function applyFilters() {
-      const searchTop = document.getElementById("searchInputTop").value.trim().toLowerCase();
-      const searchMobile = document.getElementById("searchInputMobile").value.trim().toLowerCase();
-      const q = (searchTop || searchMobile);
+   function applyFilters() {
+  const topEl = document.getElementById("searchInputTop");
+  const mobEl = document.getElementById("searchInputMobile");
+  const sortEl = document.getElementById("sortSelect");
 
-      let list = PRODUCTS.slice();
+  const searchTop = topEl ? topEl.value.trim().toLowerCase() : "";
+  const searchMobile = mobEl ? mobEl.value.trim().toLowerCase() : "";
+  const q = (searchTop || searchMobile);
 
-      // category filter
-      if (activeCategory !== "all") {
-        list = list.filter(p => p.category === activeCategory);
-      }
+  let list = PRODUCTS.slice();
 
-      // search filter
-      if (q) {
-        list = list.filter(p => p.title.toLowerCase().includes(q));
-      }
+  // category filter
+  if (activeCategory !== "all") {
+    list = list.filter(p => p.category === activeCategory);
+  }
 
-      // sorting
-      const sort = document.getElementById("sortSelect").value;
-      if (sort === "low") list.sort((a,b) => a.price - b.price);
-      if (sort === "high") list.sort((a,b) => b.price - a.price);
-      if (sort === "name") list.sort((a,b) => a.title.localeCompare(b.title));
+  // search filter
+  if (q) {
+    list = list.filter(p => p.title.toLowerCase().includes(q));
+  }
 
-      // render
-      grid.innerHTML = list.map(productCard).join("");
-      emptyState.classList.toggle("d-none", list.length !== 0);
-    }
+  // sorting
+  const sort = sortEl ? sortEl.value : "recommended";
+  if (sort === "low") list.sort((a, b) => a.price - b.price);
+  if (sort === "high") list.sort((a, b) => b.price - a.price);
+  if (sort === "name") list.sort((a, b) => a.title.localeCompare(b.title));
 
-    // ---------- Events ----------
-    document.getElementById("sortSelect").addEventListener("change", applyFilters);
+  // render (safety)
+  if (!grid) return;
 
-    document.getElementById("searchInputTop").addEventListener("input", () => {
-      document.getElementById("searchInputMobile").value = document.getElementById("searchInputTop").value;
-      applyFilters();
+  grid.innerHTML = list.map(productCard).join("");
+  emptyState.classList.toggle("d-none", list.length !== 0);
+}
+
+// ---------- Events ----------
+document.getElementById("sortSelect")?.addEventListener("change", applyFilters);
+
+document.getElementById("searchInputTop")?.addEventListener("input", () => {
+  const topEl = document.getElementById("searchInputTop");
+  const mobEl = document.getElementById("searchInputMobile");
+  if (mobEl && topEl) mobEl.value = topEl.value;
+  applyFilters();
+});
+
+document.getElementById("searchInputMobile")?.addEventListener("input", () => {
+  const topEl = document.getElementById("searchInputTop");
+  const mobEl = document.getElementById("searchInputMobile");
+  if (topEl && mobEl) topEl.value = mobEl.value;
+  applyFilters();
+});
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      b.classList.remove("btn-dark");
+      b.classList.add("btn-outline-dark");
     });
 
-    document.getElementById("searchInputMobile").addEventListener("input", () => {
-      document.getElementById("searchInputTop").value = document.getElementById("searchInputMobile").value;
-      applyFilters();
-    });
+    btn.classList.remove("btn-outline-dark");
+    btn.classList.add("btn-dark");
 
-    document.querySelectorAll(".filter-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("btn-dark"));
-        document.querySelectorAll(".filter-btn").forEach(b => b.classList.add("btn-outline-dark"));
+    activeCategory = btn.dataset.category || "all";
+    applyFilters();
+  });
+});
 
-        btn.classList.remove("btn-outline-dark");
-        btn.classList.add("btn-dark");
-        activeCategory = btn.dataset.category;
-        applyFilters();
-      });
-    });
 
     // Delegate clicks for Add & Quick View
     const qvModal = new bootstrap.Modal(document.getElementById("quickViewModal"));
