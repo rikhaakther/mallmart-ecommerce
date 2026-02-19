@@ -216,3 +216,12 @@ body{
 }
 /* nicer spacing for product quick view buttons */
 .product-card .btn { white-space: nowrap; }
+
+.cart-thumb{
+  width: 110px;
+  flex: 0 0 110px;
+}
+@media (max-width: 576px){
+  .cart-thumb{ width: 90px; flex-basis: 90px; }
+}
+
