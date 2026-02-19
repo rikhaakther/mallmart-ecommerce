@@ -36,8 +36,9 @@
             <input id="searchInputTop" class="form-control border-start-0" type="search" placeholder="Search products...">
           </div>
 
-          <!-- ✅ Wishlist -->
-          <a class="btn btn-outline-dark iconbtn position-relative" href="#" title="Wishlist">
+          <!--  Wishlist -->
+          <a class="btn btn-outline-dark iconbtn position-relative"href="wishlist.html"
+" title="Wishlist">
             <i class="bi bi-heart"></i>
             <span id="wishBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               0
@@ -247,7 +248,7 @@
             <div class="product-img">
               ${p.badge ? `<span class="badge ${badgeClass}">${p.badge}</span>` : ""}
 
-              <!-- ✅ Wishlist toggle -->
+              <!--  Wishlist toggle -->
               <button class="btn btn-light btn-sm heart" type="button"
                 title="Wishlist"
                 data-action="wish"
@@ -268,7 +269,7 @@
                 ${p.title}
               </a>
 
-              <!-- ✅ Dynamic Stars -->
+              <!--  Dynamic Stars -->
               <div class="rating small mb-2">
                 ${renderStars(p.rating)}
                 <span class="text-muted">(${p.rating.toFixed(1)})</span>
