@@ -30,10 +30,11 @@
           <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
         </ul>
 
-        <div class="d-flex gap-2">
-          <a class="btn btn-outline-dark iconbtn" href="#"><i class="bi bi-heart"></i></a>
-          <a class="btn btn-outline-dark iconbtn" href="cart.html"><i class="bi bi-bag"></i></a>
-          <a class="btn btn-dark" href="#"><i class="bi bi-person-circle me-1"></i> Account</a>
+        <div class="d-flex gap-2 align-items-center">
+          <a class="btn btn-outline-dark iconbtn position-relative" href="cart.html" title="Cart">
+            <i class="bi bi-bag"></i>
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
         </div>
       </div>
     </div>
@@ -46,7 +47,7 @@
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item"><a class="link-dark" href="index.html">Home</a></li>
           <li class="breadcrumb-item"><a class="link-dark" href="products.html">Products</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Wireless Headphones</li>
+          <li class="breadcrumb-item active" aria-current="page" id="bcTitle">Product</li>
         </ol>
       </nav>
     </div>
@@ -54,127 +55,231 @@
 
   <main class="pb-5">
     <div class="container">
-      <div class="row g-4">
-        <!-- Gallery -->
-        <div class="col-lg-6">
-          <div class="bg-white border rounded-4 p-3 p-md-4">
-            <div class="product-img rounded-4" style="height: 320px;">
-              <div class="img-placeholder">Main Image</div>
-            </div>
 
-            <div class="row g-2 mt-3">
-              <div class="col-4">
-                <div class="product-img rounded-4" style="height: 90px;">
-                  <div class="img-placeholder small">Thumb</div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="product-img rounded-4" style="height: 90px;">
-                  <div class="img-placeholder small">Thumb</div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="product-img rounded-4" style="height: 90px;">
-                  <div class="img-placeholder small">Thumb</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Details -->
-        <div class="col-lg-6">
-          <div class="bg-white border rounded-4 p-3 p-md-4">
-            <div class="small text-muted">Electronics</div>
-            <h1 class="fw-bold mb-2">Wireless Headphones</h1>
-
-            <div class="rating small mb-2">
-              <i class="bi bi-star-fill"></i> 4.6
-              <span class="text-muted">(1,245 reviews)</span>
-            </div>
-
-            <div class="d-flex align-items-end gap-3 mb-3">
-              <div class="fw-bold fs-2">৳2,799</div>
-              <div class="text-muted text-decoration-line-through">৳3,499</div>
-              <span class="badge bg-danger">-20%</span>
-            </div>
-
-            <p class="text-muted mb-4">
-              Premium sound, comfortable fit, and long battery life — perfect for daily use.
-              (Demo description: replace with real product info later.)
-            </p>
-
-            <div class="row g-3 align-items-end mb-4">
-              <div class="col-sm-4">
-                <label class="form-label fw-semibold">Quantity</label>
-                <input class="form-control" type="number" min="1" value="1">
-              </div>
-              <div class="col-sm-8 d-grid">
-                <a href="cart.html" class="btn btn-dark btn-lg">
-                  <i class="bi bi-bag-plus me-1"></i> Add to Cart
-                </a>
-              </div>
-            </div>
-
-            <div class="d-flex flex-wrap gap-3">
-              <div class="mini-stat">
-                <div class="mini-icon"><i class="bi bi-truck"></i></div>
-                <div>
-                  <div class="fw-semibold">Fast Delivery</div>
-                  <div class="small text-muted">2–3 days</div>
-                </div>
-              </div>
-              <div class="mini-stat">
-                <div class="mini-icon"><i class="bi bi-arrow-repeat"></i></div>
-                <div>
-                  <div class="fw-semibold">Easy Returns</div>
-                  <div class="small text-muted">7 days</div>
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-4">
-
-            <h2 class="fw-bold fs-5 mb-3">Specifications</h2>
-            <ul class="text-muted mb-0">
-              <li>Battery life: Up to 20 hours</li>
-              <li>Connectivity: Bluetooth 5.0</li>
-              <li>Noise isolation: Yes</li>
-              <li>Warranty: 6 months</li>
-            </ul>
-          </div>
-        </div>
+      <!-- Not Found -->
+      <div id="notFound" class="bg-white border rounded-4 p-4 d-none">
+        <h2 class="fw-bold mb-1">Product not found</h2>
+        <p class="text-muted mb-3">This product doesn’t exist. Please go back to products.</p>
+        <a href="products.html" class="btn btn-dark">Back to Products</a>
       </div>
 
-      <!-- Reviews -->
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="bg-white border rounded-4 p-3 p-md-4">
-            <h2 class="fw-bold fs-5 mb-3">Customer Reviews</h2>
-
-            <div class="border rounded-3 p-3 mb-3">
-              <div class="d-flex justify-content-between">
-                <div class="fw-semibold">Ayesha R.</div>
-                <div class="rating small"><i class="bi bi-star-fill"></i> 5.0</div>
+      <!-- Details Wrap -->
+      <div id="detailsWrap" class="d-none">
+        <div class="row g-4">
+          <!-- Gallery -->
+          <div class="col-lg-6">
+            <div class="bg-white border rounded-4 p-3 p-md-4">
+              <div class="product-img rounded-4" style="height: 320px;">
+                <div class="img-placeholder">Main Image</div>
               </div>
-              <div class="text-muted small">Great sound quality and very comfortable.</div>
-            </div>
 
-            <div class="border rounded-3 p-3">
-              <div class="d-flex justify-content-between">
-                <div class="fw-semibold">Rahim S.</div>
-                <div class="rating small"><i class="bi bi-star-fill"></i> 4.0</div>
+              <div class="row g-2 mt-3">
+                <div class="col-4">
+                  <div class="product-img rounded-4" style="height: 90px;">
+                    <div class="img-placeholder small">Thumb</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="product-img rounded-4" style="height: 90px;">
+                    <div class="img-placeholder small">Thumb</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="product-img rounded-4" style="height: 90px;">
+                    <div class="img-placeholder small">Thumb</div>
+                  </div>
+                </div>
               </div>
-              <div class="text-muted small">Battery backup is good. Value for money.</div>
             </div>
+          </div>
 
+          <!-- Details -->
+          <div class="col-lg-6">
+            <div class="bg-white border rounded-4 p-3 p-md-4">
+              <div class="small text-muted" id="pdCategory"></div>
+              <h1 class="fw-bold mb-2" id="pdTitle">Product</h1>
+
+              <div class="rating small mb-2">
+                <i class="bi bi-star-fill"></i>
+                <span id="pdRating">0.0</span>
+                <span class="text-muted">(demo)</span>
+              </div>
+
+              <div class="d-flex align-items-end gap-3 mb-3">
+                <div class="fw-bold fs-2">৳<span id="pdPrice">0</span></div>
+
+                <div class="text-muted text-decoration-line-through d-none" id="pdOldWrap">
+                  ৳<span id="pdOldPrice">0</span>
+                </div>
+
+                <span class="badge bg-danger d-none" id="pdBadge"></span>
+              </div>
+
+              <p class="text-muted mb-4" id="pdDesc">
+                Premium quality product for daily use. (Demo description — you can replace later)
+              </p>
+
+              <div class="row g-3 align-items-end mb-4">
+                <div class="col-sm-4">
+                  <label class="form-label fw-semibold">Quantity</label>
+                  <input id="qtyInput" class="form-control" type="number" min="1" value="1">
+                </div>
+                <div class="col-sm-8 d-grid">
+                  <button id="addToCartBtn" class="btn btn-dark btn-lg" type="button">
+                    <i class="bi bi-bag-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-3">
+                <div class="mini-stat">
+                  <div class="mini-icon"><i class="bi bi-truck"></i></div>
+                  <div>
+                    <div class="fw-semibold">Fast Delivery</div>
+                    <div class="small text-muted">2–3 days</div>
+                  </div>
+                </div>
+                <div class="mini-stat">
+                  <div class="mini-icon"><i class="bi bi-arrow-repeat"></i></div>
+                  <div>
+                    <div class="fw-semibold">Easy Returns</div>
+                    <div class="small text-muted">7 days</div>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-4">
+
+              <h2 class="fw-bold fs-5 mb-3">Specifications</h2>
+              <ul class="text-muted mb-0">
+                <li>High quality product (demo)</li>
+                <li>Trusted seller (demo)</li>
+                <li>Warranty: (demo)</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+
+        <!-- Reviews (demo) -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="bg-white border rounded-4 p-3 p-md-4">
+              <h2 class="fw-bold fs-5 mb-3">Customer Reviews</h2>
+
+              <div class="border rounded-3 p-3 mb-3">
+                <div class="d-flex justify-content-between">
+                  <div class="fw-semibold">Ayesha R.</div>
+                  <div class="rating small"><i class="bi bi-star-fill"></i> 5.0</div>
+                </div>
+                <div class="text-muted small">Great sound quality and very comfortable.</div>
+              </div>
+
+              <div class="border rounded-3 p-3">
+                <div class="d-flex justify-content-between">
+                  <div class="fw-semibold">Rahim S.</div>
+                  <div class="rating small"><i class="bi bi-star-fill"></i> 4.0</div>
+                </div>
+                <div class="text-muted small">Battery backup is good. Value for money.</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div><!-- /detailsWrap -->
 
     </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // MUST MATCH products/cart/checkout
+    const CART_KEY = "mallmart_cart";
+
+    const PRODUCTS = [
+      { id: 1, title: "Wireless Headphones", category: "Electronics", price: 2799, oldPrice: 3499, rating: 4.6, badge: "-20%" },
+
+      { id: 7, title: "Bluetooth Speaker", category: "Electronics", price: 1899, oldPrice: 2299, rating: 4.3, badge: "Hot" },
+      { id: 8, title: "Gaming Mouse RGB", category: "Electronics", price: 1499, oldPrice: null, rating: 4.5, badge: "New" },
+      { id: 9, title: "4K Smart TV 43 inch", category: "Electronics", price: 38999, oldPrice: 42999, rating: 4.8, badge: "-10%" },
+
+      { id: 2, title: "Casual Sneakers", category: "Fashion", price: 1999, oldPrice: null, rating: 4.4, badge: "New" },
+      { id: 3, title: "Air Fryer 3.5L", category: "Home", price: 5499, oldPrice: null, rating: 4.7, badge: "Hot" },
+      { id: 4, title: "Organic Honey 500g", category: "Groceries", price: 699, oldPrice: null, rating: 4.5, badge: "Best" },
+      { id: 5, title: "Smart Watch", category: "Electronics", price: 2599, oldPrice: 2999, rating: 4.3, badge: "-10%" },
+      { id: 6, title: "Backpack", category: "Fashion", price: 1299, oldPrice: null, rating: 4.2, badge: "New" },
+
+      { id: 10, title: "Men's Denim Jacket", category: "Fashion", price: 2499, oldPrice: null, rating: 4.2, badge: "New" },
+      { id: 11, title: "Women's Handbag", category: "Fashion", price: 1799, oldPrice: 2199, rating: 4.4, badge: "-15%" },
+      { id: 12, title: "Running Shoes", category: "Fashion", price: 3299, oldPrice: null, rating: 4.6, badge: "Best" },
+
+      { id: 13, title: "Basmati Rice 5kg", category: "Groceries", price: 699, oldPrice: null, rating: 4.5, badge: "Best" },
+      { id: 14, title: "Olive Oil 1L", category: "Groceries", price: 1199, oldPrice: 1399, rating: 4.3, badge: "-10%" },
+      { id: 15, title: "Green Tea Pack", category: "Groceries", price: 399, oldPrice: null, rating: 4.2, badge: "New" }
+    ];
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    }
+    function setCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateBadge();
+    }
+    function updateBadge() {
+      const cart = getCart();
+      const count = cart.reduce((s, i) => s + (i.qty || 0), 0);
+      document.getElementById("cartBadge").textContent = count;
+    }
+
+    function addToCart(productId, qty) {
+      const cart = getCart();
+      const found = cart.find(i => i.id === productId);
+      if (found) found.qty += qty;
+      else cart.push({ id: productId, qty: qty });
+      setCart(cart);
+    }
+
+    // Read id from URL
+    const params = new URLSearchParams(window.location.search);
+    const id = Number(params.get("id"));
+    const product = PRODUCTS.find(p => p.id === id);
+
+    updateBadge();
+
+    const notFound = document.getElementById("notFound");
+    const detailsWrap = document.getElementById("detailsWrap");
+
+    if (!product) {
+      notFound.classList.remove("d-none");
+    } else {
+      detailsWrap.classList.remove("d-none");
+
+      document.getElementById("bcTitle").textContent = product.title;
+      document.getElementById("pdCategory").textContent = product.category;
+      document.getElementById("pdTitle").textContent = product.title;
+      document.getElementById("pdRating").textContent = product.rating.toFixed(1);
+      document.getElementById("pdPrice").textContent = product.price.toLocaleString();
+
+      // badge
+      if (product.badge) {
+        const badgeEl = document.getElementById("pdBadge");
+        badgeEl.classList.remove("d-none");
+        badgeEl.textContent = product.badge;
+      }
+
+      // old price
+      if (product.oldPrice) {
+        document.getElementById("pdOldWrap").classList.remove("d-none");
+        document.getElementById("pdOldPrice").textContent = product.oldPrice.toLocaleString();
+      }
+
+      // Add to cart with qty
+      document.getElementById("addToCartBtn").addEventListener("click", () => {
+        const qty = Math.max(1, Number(document.getElementById("qtyInput").value || 1));
+        addToCart(product.id, qty);
+        window.location.href = "cart.html";
+      });
+    }
+  </script>
 </body>
 </html>
