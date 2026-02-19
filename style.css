@@ -205,3 +205,12 @@ body{
   text-decoration: none;
 }
 .social:hover{ box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08); }
+
+
+.cart-thumb{
+  width: 110px;
+  flex: 0 0 110px;
+}
+@media (max-width: 576px){
+  .cart-thumb{ width: 90px; flex-basis: 90px; }
+}
