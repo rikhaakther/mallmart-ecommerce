@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MallMart — Wishlist</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand fw-bold brand" href="index.html">
+        <span class="brand-dot"></span> MallMart
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link active" href="wishlist.html">Wishlist</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+        </ul>
+
+        <div class="d-flex gap-2 align-items-center">
+          <a class="btn btn-outline-dark iconbtn position-relative" href="wishlist.html" title="Wishlist">
+            <i class="bi bi-heart"></i>
+            <span id="wishBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
+          </a>
+
+          <a class="btn btn-outline-dark iconbtn position-relative" href="cart.html" title="Cart">
+            <i class="bi bi-bag"></i>
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              0
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="py-4">
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 align-items-end justify-content-between">
+        <div>
+          <h1 class="fw-bold mb-1">Wishlist</h1>
+          <p class="text-muted mb-0">Saved items you want to buy later.</p>
+        </div>
+
+        <div class="d-flex gap-2">
+          <a href="products.html" class="btn btn-outline-dark">
+            <i class="bi bi-arrow-left me-1"></i> Continue Shopping
+          </a>
+          <button id="clearWishBtn" class="btn btn-dark">
+            <i class="bi bi-trash3 me-1"></i> Clear Wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pb-5">
+    <div class="container">
+      <div class="row g-3" id="wishGrid"></div>
+
+      <div id="emptyState" class="text-center text-muted py-5 d-none">
+        <div class="fs-4 fw-bold mb-1">Your wishlist is empty</div>
+        <div class="mb-3">Add items from the products page.</div>
+        <a href="products.html" class="btn btn-dark">Browse Products</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Keep SAME IDs/data as products page
+    const PRODUCTS = [
+      { id: 1, title: "Wireless Headphones", category: "Electronics", price: 2799, oldPrice: 3499, rating: 4.6, badge: "-20%" },
+      { id: 7, title: "Bluetooth Speaker", category: "Electronics", price: 1899, oldPrice: 2299, rating: 4.3, badge: "Hot" },
+      { id: 8, title: "Gaming Mouse RGB", category: "Electronics", price: 1499, oldPrice: null, rating: 4.5, badge: "New" },
+      { id: 9, title: "4K Smart TV 43 inch", category: "Electronics", price: 38999, oldPrice: 42999, rating: 4.8, badge: "-10%" },
+
+      { id: 2, title: "Casual Sneakers", category: "Fashion", price: 1999, oldPrice: null, rating: 4.4, badge: "New" },
+      { id: 3, title: "Air Fryer 3.5L", category: "Home", price: 5499, oldPrice: null, rating: 4.7, badge: "Hot" },
+      { id: 4, title: "Organic Honey 500g", category: "Groceries", price: 699, oldPrice: null, rating: 4.5, badge: "Best" },
+      { id: 5, title: "Smart Watch", category: "Electronics", price: 2599, oldPrice: 2999, rating: 4.3, badge: "-10%" },
+      { id: 6, title: "Backpack", category: "Fashion", price: 1299, oldPrice: null, rating: 4.2, badge: "New" },
+
+      { id: 10, title: "Men's Denim Jacket", category: "Fashion", price: 2499, oldPrice: null, rating: 4.2, badge: "New" },
+      { id: 11, title: "Women's Handbag", category: "Fashion", price: 1799, oldPrice: 2199, rating: 4.4, badge: "-15%" },
+      { id: 12, title: "Running Shoes", category: "Fashion", price: 3299, oldPrice: null, rating: 4.6, badge: "Best" },
+
+      { id: 13, title: "Basmati Rice 5kg", category: "Groceries", price: 699, oldPrice: null, rating: 4.5, badge: "Best" },
+      { id: 14, title: "Olive Oil 1L", category: "Groceries", price: 1199, oldPrice: 1399, rating: 4.3, badge: "-10%" },
+      { id: 15, title: "Green Tea Pack", category: "Groceries", price: 399, oldPrice: null, rating: 4.2, badge: "New" }
+    ];
+
+    // Storage keys (must match other pages)
+    const CART_KEY = "mallmart_cart";
+    const WISH_KEY = "mallmart_wishlist";
+
+    function getCart() { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+    function setCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartBadge(); }
+    function updateCartBadge() {
+      const cart = getCart();
+      const count = cart.reduce((s, i) => s + (i.qty || 0), 0);
+      const el = document.getElementById("cartBadge");
+      if (el) el.textContent = count;
+    }
+    function addToCart(productId) {
+      const cart = getCart();
+      const found = cart.find(i => i.id === productId);
+      if (found) found.qty += 1;
+      else cart.push({ id: productId, qty: 1 });
+      setCart(cart);
+    }
+
+    function getWishlist() { return JSON.parse(localStorage.getItem(WISH_KEY) || "[]"); }
+    function setWishlist(list) { localStorage.setItem(WISH_KEY, JSON.stringify(list)); updateWishBadge(); }
+    function updateWishBadge() {
+      const el = document.getElementById("wishBadge");
+      if (el) el.textContent = getWishlist().length;
+    }
+    function removeFromWishlist(id) {
+      const list = getWishlist().filter(x => x !== id);
+      setWishlist(list);
+    }
+
+    function badgeClass(p) {
+      if (!p.badge) return "";
+      if (p.badge.includes("-")) return "bg-danger";
+      if (p.badge === "Hot") return "bg-warning text-dark";
+      if (p.badge === "Best") return "bg-dark";
+      return "bg-success";
+    }
+
+    const grid = document.getElementById("wishGrid");
+    const emptyState = document.getElementById("emptyState");
+
+    function wishCard(p) {
+      return `
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="product-card h-100">
+            <div class="product-img">
+              ${p.badge ? `<span class="badge ${badgeClass(p)}">${p.badge}</span>` : ""}
+
+              <button class="btn btn-light btn-sm heart" type="button" title="Remove"
+                data-action="remove" data-id="${p.id}">
+                <i class="bi bi-heart-fill"></i>
+              </button>
+
+              <a href="product-details.html?id=${p.id}" class="text-decoration-none text-dark">
+                <div class="img-placeholder">Product Image</div>
+              </a>
+            </div>
+
+            <div class="p-3">
+              <div class="small text-muted">${p.category}</div>
+              <a class="fw-semibold text-decoration-none text-dark d-block mb-1"
+                 href="product-details.html?id=${p.id}">
+                ${p.title}
+              </a>
+
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <div class="price">৳${p.price.toLocaleString()}</div>
+                  ${p.oldPrice
+                    ? `<div class="small text-muted text-decoration-line-through">৳${p.oldPrice.toLocaleString()}</div>`
+                    : `<div class="small text-muted">&nbsp;</div>`
+                  }
+                </div>
+
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-dark btn-sm" type="button"
+                    data-action="add" data-id="${p.id}">
+                    <i class="bi bi-bag-plus me-1"></i> Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderWishlist() {
+      const wishIds = getWishlist();
+      const items = wishIds
+        .map(id => PRODUCTS.find(p => p.id === id))
+        .filter(Boolean);
+
+      grid.innerHTML = items.map(wishCard).join("");
+
+      const isEmpty = items.length === 0;
+      emptyState.classList.toggle("d-none", !isEmpty);
+    }
+
+    // Click handlers
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-action]");
+      if (!el) return;
+
+      const action = el.dataset.action;
+      const id = Number(el.dataset.id);
+
+      if (action === "remove") {
+        removeFromWishlist(id);
+        renderWishlist();
+        return;
+      }
+      if (action === "add") {
+        addToCart(id);
+        return;
+      }
+    });
+
+    // Clear wishlist
+    document.getElementById("clearWishBtn").addEventListener("click", () => {
+      setWishlist([]);
+      renderWishlist();
+    });
+
+    // Init
+    updateCartBadge();
+    updateWishBadge();
+    renderWishlist();
+  </script>
+</body>
+</html>
